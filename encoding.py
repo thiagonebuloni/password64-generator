@@ -29,10 +29,21 @@ special_characters = [
 ]
 
 
-def encoding(input_string: str) -> str:
-    encoded: bytes = encode64(unidecode(input_string))
-    new_password: str = insert_special_characters(encoded)
+def encoding(input_string: str | list[str]) -> str:
+    stripped: str = str_or_list(input_string)
+    encoded: bytes = encode64(unidecode(stripped))
+    with_special_characters: str = insert_special_characters(encoded)
+    new_password: str = change_equal_sign(with_special_characters)
     return new_password
+
+
+def str_or_list(raw_input: str | list[str]) -> str:
+    if isinstance(raw_input, list):
+        stripped: str = ""
+        for word in raw_input:
+            stripped += word
+        return stripped
+    return raw_input
 
 
 def encode64(input_string: str) -> bytes:
@@ -59,3 +70,9 @@ def insert_special_characters(encoded: bytes) -> str:
             new_password += chr(special_characters[index])
 
     return new_password
+
+
+def change_equal_sign(with_special_characters: str) -> str:
+    while with_special_characters[-1] == "=":
+        with_special_characters = with_special_characters[:-1]
+    return with_special_characters

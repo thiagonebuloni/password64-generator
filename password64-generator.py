@@ -28,7 +28,7 @@ def main():
     random password.
     You'll receive a base64 encoded string with special characters.
     The same input, the same output.
-    
+
     Use 'single quotes'
     """
 
@@ -47,7 +47,8 @@ def main():
         output: str = ""
         for o, a in opts:
             if o == "-e" or o == "--encode":
-                output = encoding(args[0])
+                print(args)
+                output = encoding(args)
             if o == "-d" or o == "--decode":
                 output = decoding(args[0])
 
