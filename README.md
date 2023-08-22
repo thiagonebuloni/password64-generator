@@ -9,12 +9,12 @@ The same input, the same output.
 
 Example for a video service like Youtube.com:
 ```
-Input: python3 password64-generator -e videos
+Input: python3 password64-generator -e 'videos'
 
 Output: dmlkZ-W9z
 ```
 ```
-Input: python3 password64-generator -d dmlkZ-W9z
+Input: python3 password64-generator -d 'dmlkZ-W9z'
 
 Output: videos
 ```

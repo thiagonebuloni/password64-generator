@@ -11,12 +11,12 @@ def main():
     import sys, getopt
 
     usage = """
-    usage: python3 password64-generator <-d|-e> <word>
+    usage: python3 password64-generator <-d|-e> <'word'>
     
-    example: python3 password64-generator -d password
+    example: python3 password64-generator -d 'password'
     output: cGFz@c3dv^cmQK
     
-    example: python3 password64-generator -e cGFz@c3dv^cmQK
+    example: python3 password64-generator -e 'cGFz@c3dv^cmQK'
     output: password
 
     -e  --encode    encode word
@@ -28,7 +28,8 @@ def main():
     random password.
     You'll receive a base64 encoded string with special characters.
     The same input, the same output.
-
+    
+    Use 'single quotes'
     """
 
     try:
