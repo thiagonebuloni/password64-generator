@@ -6,6 +6,7 @@ Generates a base64 string with special characters based on a given string, with 
 Input a selected word relative to a service to which you want to generate a random password.
 You'll receive a base64 encoded string with special characters.
 The same input, the same output.
+Use 'single quotes' to avoid misinterpretation from the cli.
 
 Example for a video service like Youtube.com:
 ```

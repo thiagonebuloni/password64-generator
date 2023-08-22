@@ -19,8 +19,9 @@ def main():
     example: python3 password64-generator -e 'cGFz@c3dv^cmQK'
     output: password
 
-    -e  --encode    encode word
-    -d  --decode    decode word
+    -e  --encode    encode words
+    -d  --decode    decode words
+    -h  --help      print this help message
 
     Generates a base64 string with special characters based on a given string,
     with password generation purposes.
@@ -29,17 +30,17 @@ def main():
     You'll receive a base64 encoded string with special characters.
     The same input, the same output.
 
-    Use 'single quotes'
+    Use 'single quotes' to avoid misinterpretation from the cli.
     """
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "ed", ["encode", "decode"])
+        opts, args = getopt.getopt(sys.argv[1:], "edh", ["encode", "decode", "help"])
     except getopt.error as msg:
         print(f"\033[1;31m    {msg}\033[0;0m")
         print(usage)
         sys.exit(2)
 
-    if not args:
+    if not args and (opts == "-h" or opts == "--help"):
         print("\033[1;31m\n    Please input <word>\033[0;0m")
         print(usage)
         sys.exit(2)
@@ -51,6 +52,9 @@ def main():
                 output = encoding(args)
             if o == "-d" or o == "--decode":
                 output = decoding(args[0])
+            if o == "-h" or o == "--help":
+                print(usage)
+                sys.exit(0)
 
             print(output)
             sys.exit(0)
