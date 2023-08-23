@@ -5,13 +5,14 @@
 
 from encoding import encoding
 from decoding import decoding
+from file_handler import file_encode, file_decode
 
 
 def main():
     import sys, getopt
 
     usage = """
-    usage: python3 password64-generator <-d|-e> <'word'>
+    usage: python3 password64-generator [-d|-e|-h] ['word'|file]
     
     example: python3 password64-generator -d 'password'
     output: cGFz@c3dv^cmQK
@@ -19,9 +20,11 @@ def main():
     example: python3 password64-generator -e 'cGFz@c3dv^cmQK'
     output: password
 
-    -e  --encode    encode words
-    -d  --decode    decode words
-    -h  --help      print this help message
+    -e  --encode            encode words
+    -d  --decode            decode words
+        --file-encode       encode words from file
+        --file-decode       decode words from file
+    -h  --help              print this help message
 
     Generates a base64 string with special characters based on a given string,
     with password generation purposes.
@@ -30,34 +33,42 @@ def main():
     You'll receive a base64 encoded string with special characters.
     The same input, the same output.
 
-    Use 'single quotes' to avoid misinterpretation from the cli.
+    Use 'single quotes' with words and phrases to avoid misinterpretation from
+    the cli, unless inside files.
     """
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "edh", ["encode", "decode", "help"])
+        opts, args = getopt.getopt(
+            sys.argv[1:],
+            "edh",
+            ["encode", "decode", "help", "file-encode", "file-decode"],
+        )
     except getopt.error as msg:
         print(f"\033[1;31m    {msg}\033[0;0m")
         print(usage)
         sys.exit(2)
 
-    if not args and (opts == "-h" or opts == "--help"):
-        print("\033[1;31m\n    Please input <word>\033[0;0m")
-        print(usage)
-        sys.exit(2)
-    if opts:
+    if opts and args:
         output: str = ""
-        for o, a in opts:
+        for o, _ in opts:
             if o == "-e" or o == "--encode":
-                print(args)
                 output = encoding(args)
             if o == "-d" or o == "--decode":
                 output = decoding(args[0])
+            if o == "--file-encode":
+                file_encode(args[0])
+            if o == "--file-decode":
+                file_decode(args[0])
             if o == "-h" or o == "--help":
                 print(usage)
                 sys.exit(0)
-
             print(output)
             sys.exit(0)
+
+    elif args:  # default
+        output = encoding(args)
+        print(output)
+        sys.exit(0)
     else:
         print(usage)
         sys.exit(2)

@@ -6,16 +6,22 @@ Generates a base64 string with special characters based on a given string, with 
 Input a selected word relative to a service to which you want to generate a random password.
 You'll receive a base64 encoded string with special characters.
 The same input, the same output.
-Use 'single quotes' to avoid misinterpretation from the cli.
+Use 'single quotes' with words and phrases to avoid misinterpretation from
+the cli, unless inside files.
 
 Example for a video service like Youtube.com:
 ```
-Input: python3 password64-generator -e 'videos'
+Input: python3 password64-generator -e 'YouTube'
 
-Output: dmlkZ-W9z
+Output: WW91V=HViZ_Q
 ```
 ```
-Input: python3 password64-generator -d 'dmlkZ-W9z'
+Input: python3 password64-generator -d 'WW91V=HViZ_Q'
 
-Output: videos
+Output: YouTube
+```
+```
+Input: python3 password64-generator --file-encode file.txt
+
+Output: encoded-file.txt
 ```
